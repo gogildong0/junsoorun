@@ -381,7 +381,7 @@ function update(){
     for(const o of obs){for(let i=0;i<6;i++)dust.push({x:o.x+o.w/2,y:o.y+o.h/2,vx:(Math.random()-.5)*4,vy:-Math.random()*3,life:22});}
     for(const k of kisses)dust.push({x:k.x,y:k.y,vx:0,vy:-1,life:22});
     obs=[];kisses=[];sfxPop();}
-  if(mode==='run'){P.x+=((boss.active&&boss.phase!=='out'?260:70)-P.x)*.05;}
+  if(mode==='run'){P.x+=((boss.active&&boss.phase!=='out'?W/2-P.w/2:70)-P.x)*.05;}
   else if(mode==='toDodge'){
     worldK=Math.max(0,worldK-1/90);P.x+=((W/2-P.w/2)-P.x)*.04;
     if(worldK===0&&P.onGround){mode='dodge';showBanner('하늘을 조심해!');playBgm('dodge');shake=8;}
