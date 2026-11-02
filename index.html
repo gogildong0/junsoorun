@@ -117,7 +117,7 @@ button.lb-small{font-size:14px;padding:.25em .8em}
     </div>
   </div>
 </div>
-<div class="help"><kbd>스페이스</kbd> / <kbd>↑</kbd> 점프 · <kbd>↓</kbd> 숙이기 · <kbd>Esc</kbd> 메뉴<br>모바일: 탭하면 점프, 아래로 쓸면 숙이기<br>2000~2500점 얼굴 피하기 · 3000~4000점 각성 고석영 · 4500~5500점 드래곤: <kbd>←</kbd> <kbd>→</kbd> 이동 (모바일: 화면 왼쪽·오른쪽 누르기)</div>
+<div class="help"><kbd>스페이스</kbd> / <kbd>↑</kbd> 점프 · <kbd>S</kbd> / <kbd>↓</kbd> 숙이기 · <kbd>A</kbd> / <kbd>←</kbd> 왼쪽으로 이동 · <kbd>D</kbd> / <kbd>→</kbd> 오른쪽으로 이동<br>모바일: 탭하면 점프, 아래로 쓸면 숙이기, 화면 왼쪽·오른쪽 누르기로 이동</div>
 <section class="lb" aria-label="온라인 랭킹">
   <div class="lb-head"><span>🏆 랭킹 TOP 10</span><button class="ghost lb-small" id="lbRefresh">새로고침</button></div>
   <div class="lb-submit hidden" id="lbSubmit">
@@ -402,7 +402,10 @@ function update(){
     P.vx+=(dir*6-P.vx)*.25; if(Math.abs(P.vx)>.3)P.dir=P.vx>0?1:-1;
     P.x=Math.max(6,Math.min(W-P.w-6,P.x+P.vx));
     if(dir&&t%7===0)dust.push({x:P.x+P.w/2-dir*20,y:GROUND-3,vx:-dir*1,vy:-.4,life:14});
-    if(score>=2500){mode='toRun';noSpawnUntil=t+210;showBanner('다시 달려!');playBgm('game');keyL=keyR=false;touchDir=0;}
+    if(score>=2500){mode='toRun';noSpawnUntil=t+210;
+      for(const f of falls){for(let i=0;i<6;i++)dust.push({x:f.x+f.w/2,y:f.y+f.h/2,vx:(Math.random()-.5)*4,vy:-Math.random()*3,life:22});}
+      if(falls.length)sfxPop(); falls=[];
+      showBanner('다시 달려!');playBgm('game');keyL=keyR=false;touchDir=0;}
     else if(--fallCd<=0){
       const n=dodgeT>1800&&Math.random()<.35?2:1;
       for(let i=0;i<n;i++){const fw=46+Math.random()*14;falls.push({x:Math.random()*(W-fw),y:-80-i*40,w:fw,h:fw*1.53,vy:.8+Math.random()*1.2+dodgeT/3000,rot:(Math.random()-.5)*.6,vr:(Math.random()-.5)*.06});}
